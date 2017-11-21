@@ -95,9 +95,9 @@
                     <td>{{item.type}}</td>
                     <td>{{item.optional}}</td>
                     <td>{{item.description}}</td>
-                    <td>
-                        <i [ngClass]="item.value || item.optional ? 'fa fa-check green': 'fa fa-warning red'"></i>
-                        <input style="width:inherit" [(ngModel)]="item.value" [required]="!item.optional" (change)="updateNewUri()" novalidate>
+                    <td style="padding: 8px .75rem 8px 8px !important; display:flex;">
+                        <input style="width:inherit" [(ngModel)]="item.value" [required]="!item.optional" (change)="updateNewUri()" novalidate style="flex-grow:3;">
+                        <i [ngClass]="item.value || item.optional ? 'fa fa-check green': 'fa fa-warning red'" style="left: 0 !important; margin-left: 5px; top: 12px !important;"></i>
                     </td>
                     <td><span *ngIf="item.link"><a [attr.href]="item.link" target="_blank">{{item.linkName}}</a></span></td>
                 </tr>
