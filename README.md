@@ -47,34 +47,35 @@ config.json directs the services documentation api to the proper location of ser
 	Path to services configuration json file.
 	The service configureation json file contains a summary of the service endpoints, available endpoint method, and description of method uri's. Below is a sample of apiConfig.json file that the service documentation api has been adapted to read.
 
-```[
-   {
-    "name":"Sample",
-    "description":"Service documentation sample config ",
-    "methods":[
-     {
-      "type":"GET",
-      "uriList":[
-         {
-          "name":"Sample Resources",
-          "uri":"/",
-          "description":"List of sample resources"
-         },
-         {
-          "name":"Sample Resource",
-          "uri":"/{ID}",
-          "description":"Sample resource"
-          "parameters":[
-           {
-            "name":"ID",
-            "description":"Unique Sample resource identifier",
-            "type":"Number"
-           }
-          ]
+```
+[  
+   {  
+      "name":"Sample",
+      "description":"Service documentation sample config ",
+      "methods":[  
+         {  
+            "type":"GET",
+            "uriList":[  
+               {  
+                  "name":"Sample Resources",
+                  "uri":"/",
+                  "description":"List of sample resources"
+               },
+               {  
+                  "name":"Sample Resource",
+                  "uri":"/{ID}",
+                  "description":"Sample resource",
+                  "parameters":[  
+                     {  
+                        "name":"ID",
+                        "description":"Unique Sample resource identifier",
+                        "type":"Number"
+                     }
+                  ]
+               }
+            ]
          }
       ]
-     }			 
-    ]
    }
 ]
 ```
