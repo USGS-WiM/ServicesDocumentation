@@ -46,7 +46,7 @@ config.json directs the services documentation api to the proper location of ser
 ### apiConfig
 	Path to services configuration json file.
 	The service configureation json file contains a summary of the service endpoints, available endpoint method, and description of method uri's. Below is a sample of apiConfig.json file that the service documentation api has been adapted to read.
-	```
+```
 	[
 	   {
 		  "name":"Sample",
@@ -77,7 +77,8 @@ config.json directs the services documentation api to the proper location of ser
 		  ]
 	   }
 ]
-	```
+
+```
 
 ### homepage
 	Path to services summary markup file that is used as the service documentation homepage.
