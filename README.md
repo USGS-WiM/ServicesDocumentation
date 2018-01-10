@@ -41,11 +41,11 @@ config.json directs the services documentation api to the proper location of ser
 ```
 
 ### serviceurl
-	Base URL path location of REST services.
+Base URL path location of REST services.
 	
 ### apiConfig
-	Path to services configuration json file.
-	The service configureation json file contains a summary of the service endpoints, available endpoint method, and description of method uri's. Below is a sample of apiConfig.json file that the service documentation api has been adapted to read.
+Path to services configuration json file.
+The service configureation json file contains a summary of the service endpoints, available endpoint method, and description of method uri's. Below is a sample of apiConfig.json file that the service documentation api has been adapted to read.
 
 ```
 [  
