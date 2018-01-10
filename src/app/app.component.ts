@@ -24,6 +24,7 @@ export class AppComponent {
 	@ViewChild('acc') accordion;
 	public title: string;
 	public configSettings: IconfigObj;
+	public resources: Array<Iresource>;
 	public selectedAccordion: string; // when they open accordion, want to toggle caret
 
 	constructor(private _configService: ConfigService, private _route: ActivatedRoute,
@@ -32,7 +33,9 @@ export class AppComponent {
 	}
 	ngOnInit(){
 		this.selectedAccordion = "";
-		this.title = this.configSettings.homepagetitle + " Documentation";
+		this.title = this.configSettings.title + " API Documentation";
+		this.resources = this.configSettings.resources;
+		
 		this._pathService.getPath().subscribe((path:string) => {
 			if (path !== "home"){
 				if (this.accordion.activeIds[0] !== path) {
@@ -68,7 +71,7 @@ export class AppComponent {
 		return resName.replace(/ /g,'');
 	}
 	public getLink(url: Iurilist){
-		return url.id.replace(/ /g,'');
+		return url.name.replace(/ /g,'');
 	}
 
 	public beforeAccChange(e){

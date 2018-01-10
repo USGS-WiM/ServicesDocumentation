@@ -7,10 +7,10 @@
 
 export interface Iparameter {
     name: string;
-    type: string;
-    link?: string;
-    linkName?: string;
     description: string;
-    value: string;
+    type: string;
     optional?: boolean;
+    link?: string;
+    linkName?: string;    
+    value: string;    
 }

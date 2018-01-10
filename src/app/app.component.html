@@ -21,18 +21,20 @@
 <div class="wim-sidebar fixed" id="appMenu">
     <div class="card-header"><a [routerLink]="['home']" routerLinkActive="active">Home</a></div>
     <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccChange($event)">
-        <ngb-panel *ngFor="let resource of configSettings.resources" id="{{getName(resource.name)}}">
+        <ngb-panel *ngFor="let resource of resources" id="{{getName(resource.name)}}">
             <ng-template ngbPanelTitle>
                 <span>{{resource.name}}</span>
                 <i [ngClass]="selectedAccordion === getName(resource.name) ? 'fa fa-chevron-right pull-right': 'fa fa-chevron-down pull-right'"></i>
             </ng-template>
             <ng-template ngbPanelContent>
                 <div class="list-group-body">
-                        <p>{{resource.methods.type}}</p>
-                        <div *ngFor="let url of resource.methods.uriList">
-                            <a [routerLink]="[getName(resource.name), getLink(url)]" routerLinkActive="active-link" title="{{url.uri}}">{{url.id}}</a>
+                    <div  *ngFor="let method of resource.methods">
+                        <p>{{method.type}}</p>
+                        <div *ngFor="let url of method.uriList">
+                            <a [routerLink]="[method.type, getName(resource.name), url.uri]" routerLinkActive="active-link" title="{{resource.name+url.uri}}">{{url.name}}</a>
                             <br />
                         </div>
+                    </div>
                 </div>
             </ng-template>
         </ngb-panel>

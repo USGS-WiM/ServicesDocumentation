@@ -8,12 +8,13 @@
 import { Iparameter } from "./IParameter.interface";
 
 export interface Iurilist {
+    name: string;
     uri: string;
-    newURL: string;
-    description: string;
-    id: string;
+    description: string;    
     parameters: Array<Iparameter>;
+    body: Array<Iparameter>;
+    showMap?: boolean;
+    newURL: string;
     availableMedia: Array<string>;
     selectedMedia: string;
-    showMap?: boolean;
 }

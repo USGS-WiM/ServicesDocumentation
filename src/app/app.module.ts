@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from '../environments/environment';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
 import { MainviewComponent } from "./mainview/mainview.component";
@@ -27,7 +28,7 @@ export function ConfigLoader(configService: ConfigService) {
 
 @NgModule({
   declarations: [ AppComponent, MainviewComponent, PageNotFoundComponent],
-  imports: [ BrowserModule, HttpModule, FormsModule, AppRoutingModule, SharedModule.forRoot() ],
+  imports: [ BrowserModule, HttpModule, FormsModule, AppRoutingModule, SharedModule.forRoot(), MarkdownModule.forRoot() ],
   providers: [MapService, ConfigService,
         { provide: APP_INITIALIZER, useFactory: ConfigLoader, deps: [ConfigService], multi:true}
       ],

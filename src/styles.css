@@ -251,6 +251,11 @@ margin-bottom: 10px !important;
     }
 }
 
+a.disabled {
+  color: gray;
+  cursor: not-allowed;
+  text-decoration: underline;
+}
 
 .parameters-wrapper{
   overflow-x: scroll !important;
