@@ -28,16 +28,16 @@ The config.json located in the assets folder can be adapted to change the sideba
 
 ## Configuration file structure
 config.json directs the services documentation api to the proper location of services, service api and homepage markup location.
-```
-    "copyright": "2017 WIM - USGS",
-    "author": "Author - USGS Web Informatics and Mapping", 
-    "purpose": "sample services external config file for documentation.",
-    "configuration": {
-        "title":"Sample Web Services",
-        "serviceurl":"https://test.sample.usgs.gov/sampleservices/",
-        "apiConfig":"https://test.sample.usgs.gov/sampleservices/apiconfig",        
-        "homepage":"https://test.sample.usgs.gov/sampleservices/Introduction.md"
-    }
+
+```"copyright": "2017 WIM - USGS",
+"author": "Author - USGS Web Informatics and Mapping", 
+"purpose": "sample services external config file for documentation.",
+"configuration": {
+    "title":"Sample Web Services",
+    "serviceurl":"https://test.sample.usgs.gov/sampleservices/",
+    "apiConfig":"https://test.sample.usgs.gov/sampleservices/apiconfig",        
+    "homepage":"https://test.sample.usgs.gov/sampleservices/Introduction.md"
+}
 ```
 
 ### serviceurl
@@ -46,43 +46,42 @@ config.json directs the services documentation api to the proper location of ser
 ### apiConfig
 	Path to services configuration json file.
 	The service configureation json file contains a summary of the service endpoints, available endpoint method, and description of method uri's. Below is a sample of apiConfig.json file that the service documentation api has been adapted to read.
-```
-	[
-	   {
-		  "name":"Sample",
-		  "description":"Service documentation sample config ",
-		  "methods":[
-			 {
-				"type":"GET",
-				"uriList":[
-				   {
-					  "name":"Sample Resources",
-					  "uri":"/",
-					  "description":"List of sample resources"
-				   },
-				   {
-					  "name":"Sample Resource",
-					  "uri":"/{ID}",
-					  "description":"Sample resource"
-					  "parameters":[
-						 {
-							"name":"ID",
-							"description":"Unique Sample resource identifier",
-							"type":"Number"
-						 }
-					  ]
-				   }
-				]
-			 }			 
-		  ]
-	   }
-]
 
+```[
+   {
+    "name":"Sample",
+    "description":"Service documentation sample config ",
+    "methods":[
+     {
+      "type":"GET",
+      "uriList":[
+         {
+          "name":"Sample Resources",
+          "uri":"/",
+          "description":"List of sample resources"
+         },
+         {
+          "name":"Sample Resource",
+          "uri":"/{ID}",
+          "description":"Sample resource"
+          "parameters":[
+           {
+            "name":"ID",
+            "description":"Unique Sample resource identifier",
+            "type":"Number"
+           }
+          ]
+         }
+      ]
+     }			 
+    ]
+   }
+]
 ```
+
 
 ### homepage
-	Path to services summary markup file that is used as the service documentation homepage.
-	see [basic-writing-and-formatting-syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/) for more help.
+Path to services summary markup file that is used as the service documentation homepage. See [basic-writing-and-formatting-syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/) for more help.
 
 ## Building and testing
 
