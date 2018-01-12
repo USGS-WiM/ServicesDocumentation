@@ -14,12 +14,13 @@
 <!-- start of the resource section chosen -->
     <div id="resourceDescription" *ngIf="isSelected">
         <h4>{{selectedResource.name}}</h4>
-        <div class="well">{{ selectedResource.description }}</div>
+        <div *ngIf ="selectedResource.description.string" class="well">{{ selectedResource.description.string }}</div>
+        <div *ngIf ="selectedResource.description.link" class="well" markdown [src]="selectedResource.description.link"></div>
     </div>
     <div class="panel" *ngIf="selectedUri">
         <h4>Service Description</h4>
-        <div class="well">{{ selectedUri.description }}</div>
-    
+        <div *ngIf ="selectedUri.description.string" class="well">{{ selectedUri.description.string }}</div>
+        <div *ngIf ="selectedUri.description.link" class="well" markdown [src]="selectedUri.description.link"></div>
         <h4>Service URL</h4>
         <div class="well">
             <code>{{configSettings.serviceurl+selectedResource.name.toLowerCase()+selectedUri.uri }}</code>
@@ -68,6 +69,7 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Description</th>
+                                <th>Additional Info</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,7 +77,7 @@
                                 <td><strong>{{item.name}}</strong></td>
                                 <td>{{item.type}}</td>
                                 <td>{{item.description}}</td>
-                                <td><span *ngIf="item.link"><a [attr.href]="item.link.href" target="_blank">{{item.link.ref}}</a></span></td>
+                                <td><span *ngIf="item.link"><a [attr.href]="item.link.method+'/'+item.link.href+'/'+cleanName(item.link.rel)" target="_blank">{{item.link.rel}}</a></span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -90,7 +92,7 @@
                 <a *ngIf="selectedUri.body" class="disabled">{{configSettings.serviceurl+selectedResource.name.toLowerCase()+selectedUri.newURL}}</a>
             </p>
             <p>
-                <span *ngIf="!downloadable || selectedUri.body" class="btn-toolbar">
+                <span *ngIf="!downloadable && !selectedUri.body" class="btn-toolbar">
                     <button (click)="loadResponse()" type="button" class="btn btn-primary btn-sm">
                         <i class="fa fa-refresh" [ngClass]="{'fa-spin': waitCursor}"></i>&nbsp;&nbsp;Load response in {{selectedUri.selectedMedia}} format
                     </button>
@@ -103,7 +105,7 @@
                 </span>
             </p>
     
-            <div *ngIf="!downloadable" class="panel panel-default" style="padding:25px;background:white">
+            <div *ngIf="!downloadable && !selectedUri.body" class="panel panel-default" style="padding:25px;background:white">
                 <div class="panel-body">
                     <json-formatter *ngIf="requestResults" [open]="false" [json]="requestResults"></json-formatter>
                 </div>

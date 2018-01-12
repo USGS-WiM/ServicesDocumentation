@@ -67,11 +67,8 @@ export class AppComponent {
 		}
 	}
 
-	public getName(resName: string) {
+	public cleanName(resName: string) {
 		return resName.replace(/ /g,'');
-	}
-	public getLink(url: Iurilist){
-		return url.name.replace(/ /g,'');
 	}
 
 	public beforeAccChange(e){

@@ -87,7 +87,7 @@ export class MainviewComponent implements OnInit {
                     this.selectedResource.methods.forEach((method) => {
                         if(method.type ==urlSeg[0].path ){
                             method.uriList.forEach((uri)=> {
-                                if (uri.uri.replace(/ /g, '') == urlSeg[2].path) {
+                                if (uri.name.replace(/ /g, '') == urlSeg[2].path) {
                                     this.thisRoute = urlSeg[1].path;
                                     this.selectedUri = uri;
                                     this.updateNewUri(); // updates the REST Query URL
@@ -115,12 +115,15 @@ export class MainviewComponent implements OnInit {
 
     // each time they change the selectedMedia or a parameter
     public updateNewUri() {
+       
+        //must look at parameterlistvalues and url -> search and replace
+        let inputParams: any =null;
         this.requestResults = undefined; this.gotResponse = false;
-        let inputParams: Array<any> = [this.selectedUri.selectedMedia];
         if(this.selectedUri.parameters){
-            this.selectedUri.parameters.forEach((p: Iparameter) => {
-                inputParams.push(p.value);
-            });
+            inputParams={};
+            this.selectedUri.parameters.forEach(p=> 
+                inputParams[p.name]=p.value
+            );
         }//endif
 
         this.selectedUri.newURL = this.formatString(this.selectedUri.uri, inputParams);
@@ -129,6 +132,7 @@ export class MainviewComponent implements OnInit {
             if (this.selectedUri.availableMedia.length == 0)
                 this.downloadable = true;
         }
+       
     }
 
     // go hit endpoint and return response
@@ -148,11 +152,12 @@ export class MainviewComponent implements OnInit {
     private formatString(uri, inputs): string {
         let formattedURI: string = "";
         var args = inputs;
-        return uri.replace(/{(\d+)}/g, function (match, number) {
-            return typeof args[number] != 'undefined' ? args[number] : match;
+        var newstring = uri.replace(/{[a-zA-Z0-9_]+}/g, function (match, number) {
+            return typeof args[match.slice(1, -1)] != 'undefined' ? args[match.slice(1, -1)] : match;
         });
+        return newstring;
     }
-    // if geojson, can view response on map
+    // if geojson, can view response on mapS
     public showResponseOnMap() {
         let smallIcon = new L.Icon({
             iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
@@ -189,6 +194,9 @@ export class MainviewComponent implements OnInit {
             return 'mapView';
         } else return '';
     }
+    public cleanName(resName: string) {
+		return resName.replace(/ /g,'');
+	}
 
     // need to detect changes because getMapClass() changes the dom. without this causes changedetection error
     ngAfterViewChecked(){

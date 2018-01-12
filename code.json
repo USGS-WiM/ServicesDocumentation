@@ -1,8 +1,8 @@
 [
   {
-    "name": "NavigationServices",
+    "name": "Service Documentation",
     "organization": "U.S. Geological Survey",
-    "description": "StreamStats custome REST Navigation services that leverage USGS NLDI services and flow direction rasters to navigate NHD network",
+    "description": "Service Documentation API host application.",
     "version": "v0.0.0",
     "statusOptionsURL":"https://github.com/GSA/code-gov-web/blob/master/src/assets/schemas/2.0.0.json#L144-L152",
 	"status": "preliminary",	
@@ -18,22 +18,22 @@
     },
 
     "homepageURL": "https://wim.usgs.gov",
-    "downloadURL": "https://github.com/USGS-WiM/NavigationServices/archive/master.zip",
-    "disclaimerURL": "https://github.com/USGS-WiM/NavigationServices/blob/master/LICENSE.md",
-    "repositoryUrl": "https://github.com/USGS-WiM/NavigationServices",
+    "downloadURL": "https://github.com/USGS-WiM/ServicesDocumentation/archive/master.zip",
+    "disclaimerURL": "https://github.com/USGS-WiM/ServicesDocumentation/blob/master/LICENSE.md",
+    "repositoryUrl": "https://github.com/USGS-WiM/ServicesDocumentation",
     "vcs": "git",
 
     "laborHours": null,
 
     "tags": [
-      "Streamstats",
+      "API",
       "Services",
 	  "REST",
-	  "Navigation"
+	  "Documentation"
     ],
 
     "languages": [
-      "c#"
+      "typescript"
     ],
 
     "contact": {
@@ -42,7 +42,7 @@
     },
 
     "date": {
-      "metadataLastUpdated": "2017-10-25"
+      "metadataLastUpdated": "2018-01-11"
     }
   }
 ]
