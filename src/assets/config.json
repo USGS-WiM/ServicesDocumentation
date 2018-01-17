@@ -4,8 +4,8 @@
     "purpose": "Navigation services external config file for documentation.",
     "configuration": {
         "title":"Navigation Web Services",
-        "serviceurl":"https://test.streamstats.usgs.gov/navigationservices/",
-        "apiConfig":"https://test.streamstats.usgs.gov/navigationservices/apiconfig",        
+        "serviceurl":"https://test.streamstats.usgs.gov/NavigationServices/",
+        "apiConfig":"https://test.streamstats.usgs.gov/NavigationServices/apiconfig",        
         "homepage":"https://raw.githubusercontent.com/USGS-WiM/NavigationServices/staging/Docs/Introduction.md"
     }
 }

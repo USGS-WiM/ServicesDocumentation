@@ -261,17 +261,23 @@ a.disabled {
   overflow-x: scroll !important;
 }
 
+pre {
+  padding: 16px;
+  line-height: 1.45
+}
 
 
 ul{
   font-size: 10pt !important;
   font-weight: 300 !important;
+  letter-spacing: -0.3px !important;
 }
 
 ul li{
   box-sizing: border-box;
   padding-top: 3px;
   padding-bottom: 3px;
+  letter-spacing: -0.3px !important;
 }
 
 
