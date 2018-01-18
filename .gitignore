@@ -17,6 +17,7 @@
 *.sublime-workspace
 
 # IDE - VSCode
+.vscode/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -39,3 +40,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# ignore a single file
+config.json

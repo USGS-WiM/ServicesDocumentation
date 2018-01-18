@@ -4,13 +4,13 @@
 // copyright:   2017 WiM - USGS
 // authors:  Tonia Roddick - USGS Wisconsin Internet Mapping
 // purpose: interface for the settings/config.json configuration.resources[i].methods.uriList[i].parameters[i]
+import { ILink } from "./ILink.interface";
 
 export interface Iparameter {
     name: string;
-    type: string;
-    link?: string;
-    linkName?: string;
     description: string;
-    value: string;
+    type: string;
     optional?: boolean;
+    link?: ILink;  
+    value: string;    
 }

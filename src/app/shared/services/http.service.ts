@@ -26,9 +26,9 @@ export class HttpServices {
     // ------------ GETS ---------------------------
     public getEntities(url:string){
         let options = new RequestOptions({headers: this.jsonHeader});
-        return this._http.get(this.configSettings.services + url, options)
-            .map(response => <Array<any>>response.json())
-            .catch(this.errorHandler)
+         return this._http.get(url, options)
+             .map(response => <Array<any>>response.json())
+             .catch(this.errorHandler)
     }
 
     private errorHandler(error: Response | any) {        

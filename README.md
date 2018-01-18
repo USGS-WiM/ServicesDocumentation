@@ -1,109 +1,118 @@
-# ServicesDocumentation
+![WiM](wimlogo.png)
+
+# Services Documentation
 
 REST Services documentation template for use with any WIM services documentation.
 
-## Development server
+### Prerequisites
 
-Clone or download zip file. Run `npm install`, then `ng serve` for a dev server. 
-Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This project has dependencies that require [Node 6.9.0] (https://nodejs.org/en/) or higher, which includes NPM 3 or higher, and Angular CLI.
+
+```
+npm install -g @angular/cli
+```
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Installing
+
+https://help.github.com/articles/cloning-a-repository/
+
+* Run `npm install`. 
 
 ## Configuration
 
-The config.json located in the assets folder can be swapped out to change the sidebar Accordion Titles (resource[i].name) and contents (resource[i].methods.uriList[i].id). URL Routing is dynamically created based on these two properties. The Home page must be also custom configured for each REST Services Documenation application. 
+The config.json located in the assets folder can be adapted to change the sidebar Accordion Titles and contents. URL Routing is dynamically created based on these two properties. The Home page must be also custom configured for each REST Services Documenation application. 
 
 ## Configuration file structure
-Properties (example) needed for config.json to work properly with application:
+config.json directs the services documentation api to the proper location of services, service api and homepage markup location.
+
+```"copyright": "2017 WIM - USGS",
+"author": "Author - USGS Web Informatics and Mapping", 
+"purpose": "sample services external config file for documentation.",
+"configuration": {
+    "title":"Sample Web Services",
+    "serviceurl":"https://test.sample.usgs.gov/sampleservices/",
+    "apiConfig":"https://test.sample.usgs.gov/sampleservices/apiconfig",        
+    "homepage":"https://test.sample.usgs.gov/sampleservices/Introduction.md"
+}
 ```
-{
-    "copyright": "2017 WIM - USGS",
-    "author": "Tonia Roddick - USGS Web Informatics and Mapping", 
-    "purpose": "External (to webpack bundling) config file for the web services documentation.",
-    "notes": "for uriList[i].parameters[i] = Add 'optional: true' if parameter is optional. Add 'showMap: true' if .geojson is an availableMedia option",
-    "configuration": {
-        "services": "https://sigldev.wim.usgs.gov/SiGLServices",
-        "mapper":"http://sigldev.wim.usgs.gov/sigl/",
-        "application": "https://sigldev.wim.usgs.gov/SiGL_DMS",
-        "homepagetitle": "SiGL Web Services",
-        "resources": [
-            {            
-                "name": "Contacts",
-                "description": "The CONTACT resources describes the contacts (usually principle investigators) associated with a PROJECT. It includes the contact name, email, phone, and organization. Each individual contact can only be associated with a single project, but projects can be associated with multiple contacts.",
-                "methods": {
-                    "type": "GET",
-                    "uriList": [
-                        {
-                            "uri": "/contacts{0}",
-                            "description": "This service returns a list of all contacts.",
-                            "id": "All Contacts",
-                            "parameters": [],
-                            "availableMedia": [".xml", ".json"],
-                            "selectedMedia": ".json"
-                        },
-                        {
-                            "uri": "/contacts/{1}{0}",
-                            "description": "This service returns a contact by it's ID.",
-                            "id": "A Contact",
-                            "parameters": [
-                            { "name": "contactId", "type": "number", "description": "Id of the contact requested", "value": "" }
-                            ],
-                            "availableMedia": [".xml", ".json"],
-                            "selectedMedia": ".json"
-                        },
-                        {
-                            "uri": "/projects/{1}/contacts{0}",
-                            "description": "This service returns a list of contacts that a project has.",
-                            "id": "Project Contacts",
-                            "parameters": [
-                                { "name": "projectId", "type": "number", "description": "Id of the project requested", "value": "", "link": "../Project/AllProjects", "linkName": "See Projects" }
-                            ],
-                            "availableMedia": [".xml", ".json"],
-                            "selectedMedia": ".json"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "Site",
-                "description": "The SITE resource describes the basic information about a site. It includes: name, description, latitude, longitude, country, state, latitude, longitude, site description, waterbody, HUC8, sampling start date, sampling end date, sampling platform, site URL (if available), and additional information (open text field). Each individual site can only be associated with a single project, but projects can be associated with multiple sites.",
-                "methods": {
-                    "type": "GET",
-                    "uriList": [
-                        {
-                            "uri": "/sites{0}",
-                            "description": "This service returns a list of sites.",
-                            "id": "All Sites",
-                            "parameters": [],
-                            "availableMedia": [".xml", ".json", ".geojson"],
-                            "selectedMedia": ".json",
-                            "showMap": true
-                        },
-                        {
-                            "uri": "/sites/FilteredSites{0}?Duration={1}&Lake={2}&Media={3}&ProjObjs={4}&ProjMonitorCoords={5}&ProjOrg={6}&Parameters={7}&ResComp={8}&State={9}&Status={10}",
-                            "description": "This service returns a list of sites that meet the passed-in values.",
-                            "id": "Filtered Sites",
-                            "parameters": [
-                                { "name": "durationIDs", "type": "comma separated numbers", "description": "comma separated list of project duration IDs (ex: 1,2,3)", "optional": true, "value": "", "link": "../home", "linkName": "See Projects Durations },
-                                { "name": "lakeIDs", "type": "comma separated numbers", "description": "comma separated list of lake IDs", "optional": true, "value": "", "link": "../home", "linkName": "See Lakes },
-                                { "name": "mediaIDs", "type": "comma separated numbers", "description": "comma separated list of media type IDs", "optional": true, "value": "", "link": "../home", "linkName": "See Media Types },
-                                { "name": "objIDs", "type": "comma separated numbers", "description": "comma separated list of objective type IDs", "optional": true, "value": "", "link": "../home", "linkName": "See Objective Types },
-                                { "name": "monCoordIDs", "type": "comma separated numbers", "description": "comma separated list of monitoring coordination effort IDs", "optional": true, "value": "", "link": "../home", "linkName": "See Monitoring Coordination Efforts },
-                                { "name": "orgID", "type": "number", "description": "organization ID that created the project that this site belongs to", "optional": true, "value": "", "link": "../home", "linkName": "See Organizations },
-                                { "name": "parameterIDs", "type": "comma separated numbers", "description": "comma separated list of parameter type IDs", "optional": true, "value": "", "link": "../home", "linkName": "See Parameter Types },
-                                { "name": "resCompIDs", "type": "comma separated numbers", "description": "comma separated list of resource type IDs", "optional": true, "value": "", "link": "../home", "linkName": "See Resource Types },
-                                { "name": "states", "type": "comma separated strings", "description": "comma separated list of state names (ex: 'Michigan,Wisconsin')", "optional": true, "value": "", "link": "../home", "linkName": "See States },
-                                { "name": "statusIDs", "type": "comma separated numbers", "description": "comma separated list of project status IDs", "optional": true, "value": "", "link": "../home", "linkName": "See Project Statuses }
-                            ],
-                            "availableMedia": [".xml", ".json", ".geojson"],
-                            "selectedMedia": ".json",
-                            "showMap": true
-                        }
-                    ]
-                }
+
+### serviceurl
+Base URL path location of REST services.
+	
+### apiConfig
+Path to services configuration json file.
+The service configureation json file contains a summary of the service endpoints, available endpoint method, and description of method uri's. Below is a sample of apiConfig.json file that the service documentation api has been adapted to read.
 
 ```
-### A few things to note on "Site" Resource: 
-1. AvailableMedia include ".geojson". When this is available, property "showMap" can be added to the uriList properties. 
-2. The "optional" property can be added to "parameters" for those parameter values that are optional.
-3. The Parameters can include "link" and "linkName" properties that can contain a link to the related information that will open in a new tab.
-4. Update the index.html `<base href="">` to point to the Folder name in which it will reside.
-5. This application can run only on an ec2 instance and not in S3, due to the nested routing needed to allow users to copy links and come back later to paste and go directly to that resource info page. Be sure to include the `web.config` file (located at the root) in the application folder at the same level as the index.html
+[  
+   {  
+      "name":"Sample",
+      "description":"Service documentation sample config ",
+      "methods":[  
+         {  
+            "type":"GET",
+            "uriList":[  
+               {  
+                  "name":"Sample Resources",
+                  "uri":"/",
+                  "description":"List of sample resources"
+               },
+               {  
+                  "name":"Sample Resource",
+                  "uri":"/{ID}",
+                  "description":"Sample resource",
+                  "parameters":[  
+                     {  
+                        "name":"ID",
+                        "description":"Unique Sample resource identifier",
+                        "type":"Number"
+                     }
+                  ]
+               }
+            ]
+         }
+      ]
+   }
+]
+```
+
+
+### homepage
+Path to services summary markup file that is used as the service documentation homepage. See [basic-writing-and-formatting-syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/) for more help.
+
+## Building and testing
+
+Run `ng serve` for a dev server. 
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Deployment
+
+Run `ng build -prod` to build a deployed project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+## Authors
+
+* **[Jeremy Newson](https://www.usgs.gov/staff-profiles/jeremy-k-newson)**  - *Lead Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+* **[Tonia Roddick](https://www.usgs.gov/staff-profiles/tonia-m-roddick)**  - *Lead Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+
+See also the list of [contributors](../../graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the Creative Commons CC0 1.0 Universal License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Suggested Citation
+
+In the spirit of open source, please cite any re-use of the source code stored in this repository. Below is the suggested citation:
+
+`This project contains code produced by the Web Informatics and Mapping (WIM) team at the United States Geological Survey (USGS). As a work of the United States Government, this project is in the public domain within the United States. https://wim.usgs.gov`
+
+
+## About WIM
+
+* This project authored by the [USGS WIM team](https://wim.usgs.gov)
+* WIM is a team of developers and technologists who build and manage tools, software, web services, and databases to support USGS science and other federal government cooperators.
+* WiM is a part of the [Upper Midwest Water Science Center](https://www.usgs.gov/centers/wisconsin-water-science-center).

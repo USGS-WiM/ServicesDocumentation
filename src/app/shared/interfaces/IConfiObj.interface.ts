@@ -6,11 +6,12 @@
 // purpose: interface for the settings/config.json configuration
 
 import { Iresource } from "./IResource.interface";
+import { Observable } from "rxjs/Observable";
 
 export interface IconfigObj {
-    services: string;
-    mapper: string;
-    application: string;
-    homepagetitle: string;
+    title:string;
+    apiConfig:string;
+    serviceurl:string;
     resources: Array<Iresource>;
+    homepage:string;
 }

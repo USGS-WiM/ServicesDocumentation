@@ -10,5 +10,5 @@ import { Imethods } from "./IMethod.interface";
 export interface Iresource {
     name: string;
     description: string;
-    methods: Imethods;
+    methods: Array<Imethods>;
 }
