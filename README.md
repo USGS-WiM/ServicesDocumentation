@@ -66,7 +66,7 @@ Note: _Resource and method descriptions are referenced by either a hyperlink mar
                {  
                   "name":"Sample Resource",
                   "uri":"/{ID}",
-                  "description":"Sample resource",
+                  "description":{"string":"Sample resource description string"},
                   "parameters":[  
                      {  
                         "name":"ID",
