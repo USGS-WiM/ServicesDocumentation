@@ -47,11 +47,13 @@ Base URL path location of REST services.
 Path to services configuration json file.
 The service configureation json file contains a summary of the service endpoints, available endpoint method, and description of method uri's. Below is a sample of apiConfig.json file that the service documentation api has been adapted to read.
 
+Note: _Resource and method descriptions are referenced by either a hyperlink markdown page or brief string description. Both methods are implemented by use of a key value pair as shown in the following example below._
+
 ```
 [  
    {  
       "name":"Sample",
-      "description":"Service documentation sample config ",
+      "description":{"string":"Service documentation sample config "},
       "methods":[  
          {  
             "type":"GET",
@@ -59,12 +61,12 @@ The service configureation json file contains a summary of the service endpoints
                {  
                   "name":"Sample Resources",
                   "uri":"/",
-                  "description":"List of sample resources"
+                  "description":{"link":"https://linkToDescriptionMarkDownPage.md"}
                },
                {  
                   "name":"Sample Resource",
                   "uri":"/{ID}",
-                  "description":"Sample resource",
+                  "description":{"string":"Sample resource description string"},
                   "parameters":[  
                      {  
                         "name":"ID",
@@ -91,7 +93,19 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 ## Deployment
 
-Run `ng build -prod` to build a deployed project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build -prod --baseHref` to build a deployed project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build, and --baseHref to set the base tag to <base href="">.
+
+see [CLI build](https://github.com/angular/angular-cli/wiki/build) for additional options.
+
+## Migrating to latest CLI
+
+Migrating to the latest version of angular cli can be accomplished by referencing the [angular-update-guide](https://angular-update-guide.firebaseapp.com/)
+
+```
+npm install typescript@2.4 --save-dev
+
+npm install @angular/common@latest @angular/compiler@latest @angular/compiler-cli@latest @angular/core@latest @angular/forms@latest @angular/http@latest @angular/platform-browser@latest @angular/platform-browser-dynamic@latest @angular/platform-server@latest @angular/router@latest @angular/animations@latest --save
+```
 
 ## Authors
 
