@@ -1,11 +1,11 @@
 {
     "copyright": "2017 WIM - USGS",
     "author": "Jeremy Newson - USGS Web Informatics and Mapping", 
-    "purpose": "Navigation services external config file for documentation.",
-    "configuration": {
-        "title":"Navigation Web Services",
-        "serviceurl":"https://test.streamstats.usgs.gov/NavigationServices/",
-        "apiConfig":"https://test.streamstats.usgs.gov/NavigationServices/apiconfig",        
-        "homepage":"https://raw.githubusercontent.com/USGS-WiM/NavigationServices/staging/Docs/Introduction.md"
-    }
+    "purpose": "Krig services external config file for documentation.",
+  "configuration": {
+    "title": "Krig Web Services",
+    "serviceurl": "https://test.streamstats.usgs.gov/krigServices/",
+    "apiConfig": "https://test.streamstats.usgs.gov/krigServices/apiconfig",
+    "homepage": "https://raw.githubusercontent.com/USGS-WiM/krigServices/staging/Docs/Introduction.md"
+  }
 }

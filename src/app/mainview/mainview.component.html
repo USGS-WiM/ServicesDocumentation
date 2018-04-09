@@ -23,7 +23,7 @@
         <div *ngIf ="selectedUri.description.link" class="well" markdown [src]="selectedUri.description.link"></div>
         <h4>Service URL</h4>
         <div class="well">
-            <code>{{configSettings.serviceurl+selectedResource.name.toLowerCase()+selectedUri.uri }}</code>
+          <code >{{StartUri}}</code>
         </div>
      
         <div *ngIf="selectedUri.parameters">
@@ -34,7 +34,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Type</th>
-                            <th>Optional</th>
+                            <th>Required</th>
                             <th>Description</th>
                             <th>Input Parameter</th>
                             <th>Additional Info</th>
@@ -44,11 +44,11 @@
                         <tr *ngFor="let item of selectedUri.parameters">
                             <td><strong>{{item.name}}</strong></td>
                             <td>{{item.type}}</td>
-                            <td>{{item.optional}}</td>
+                            <td>{{item.required}}</td>
                             <td>{{item.description}}</td>
                             <td style="padding: 8px .75rem 8px 8px !important; display:flex;">
-                                <input style="width:inherit" [(ngModel)]="item.value" [required]="!item.optional" (change)="updateNewUri()" novalidate style="flex-grow:3;">
-                                <i [ngClass]="item.value || item.optional ? 'fa fa-check green': 'fa fa-warning red'" style="left: 0 !important; margin-left: 5px; top: 12px !important;"></i>
+                                <input style="width:inherit" [(ngModel)]="item.value" [required]="item.required" (change)="updateNewUri()" novalidate style="flex-grow:3;">
+                                <i [ngClass]="item.value || !item.required ? 'fa fa-check green': 'fa fa-warning red'" style="left: 0 !important; margin-left: 5px; top: 12px !important;"></i>
                             </td>
                             <td><span *ngIf="item.link"><a [attr.href]="item.link.href" target="_blank">{{item.link.ref}}</a></span></td>
                         </tr>
@@ -88,11 +88,10 @@
         <div class="well">
             <p><i>Updated based on parameters above</i></p>
             <p>
-                <a *ngIf="!selectedUri.body" href="{{configSettings.serviceurl+selectedResource.name.toLowerCase()+selectedUri.newURL}}" target="_blank">{{configSettings.serviceurl+selectedResource.name.toLowerCase()+selectedUri.newURL}}</a>
-                <a *ngIf="selectedUri.body" class="disabled">{{configSettings.serviceurl+selectedResource.name.toLowerCase()+selectedUri.newURL}}</a>
+                <a [ngClass]="{'disabled': selectedUri.body || selectedUri.requiresAuthentication}" href="{{StartUri}}" target="_blank">{{StartUri}}</a>
             </p>
             <p>
-                <span *ngIf="!downloadable && !selectedUri.body" class="btn-toolbar">
+                <span *ngIf="!downloadable && !selectedUri.body && !selectedUri.requiresAuthentication" class="btn-toolbar">
                     <button (click)="loadResponse()" type="button" class="btn btn-primary btn-sm">
                         <i class="fa fa-refresh" [ngClass]="{'fa-spin': waitCursor}"></i>&nbsp;&nbsp;Load response in {{selectedUri.selectedMedia}} format
                     </button>
@@ -104,7 +103,7 @@
                     <span *ngIf="selectedUri.showMap && selectedUri.selectedMedia != '.geojson'" style="font-size:12px; padding-left:0px; display:block;width:100%;">Use Response Format '.geojson' to see results on map below.</span>
                 </span>
             </p>    
-            <div *ngIf="!downloadable && !selectedUri.body" class="panel panel-default" style="padding:25px;background:white">
+            <div *ngIf="!downloadable && !selectedUri.body && !selectedUri.requiresAuthentication" class="panel panel-default" style="padding:25px;background:white">
                 <div class="panel-body">
                     <json-formatter *ngIf="requestResults" [open]="false" [json]="requestResults"></json-formatter>
                 </div>

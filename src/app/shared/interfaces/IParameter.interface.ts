@@ -10,7 +10,7 @@ export interface Iparameter {
     name: string;
     description: string;
     type: string;
-    optional?: boolean;
+    required?: boolean;
     link?: ILink;  
     value: string;    
 }
