@@ -126,25 +126,27 @@ export class MainviewComponent implements OnInit {
   // each time they change the selectedMedia or a parameter
   public updateNewUri() {
     //adding parameters to url
-    
+
     if (this.selectedUri.parameters && !(this.selectedUri.uri.indexOf('?') > -1)) {
-      var uri = this.selectedUri;
-      let inParams = uri.parameters;
-      var rg = /[^{\}]+(?=})/g; 
-      var uriParams = [];
-      uriParams.push(rg.exec(uri.uri));
-      if (uri.parameters.length > 1 || uri.parameters[0].name != uriParams[0]) uri.uri += '?';
-      inParams.forEach(function (p) {
-        uriParams.forEach(function (u) {
-          if (p.name != u && p != inParams[inParams.length - 1]) {
-            uri.uri += p.name + '={' + p.name + '}&';
-          } else if (p.name != u ) {
-            uri.uri += p.name + '={' + p.name + '}';
-          };
+      if (this.selectedUri.parameters.length > 0) {
+        var uri = this.selectedUri;
+        let inParams = uri.parameters;
+        var rg = /[^{\}]+(?=})/g;
+        var uriParams = [];
+        uriParams.push(rg.exec(uri.uri));
+        if (uri.parameters.length > 1 || uri.parameters[0].name != uriParams[0]) uri.uri += '?';
+        inParams.forEach(function (p) {
+          uriParams.forEach(function (u) {
+            if (p.name != u && p != inParams[inParams.length - 1]) {
+              uri.uri += p.name + '={' + p.name + '}&';
+            } else if (p.name != u) {
+              uri.uri += p.name + '={' + p.name + '}';
+            }
+          });
         });
-      });
-    };
-      
+      }
+    }
+
     //must look at parameterlistvalues and url -> search and replace
     let inputParams: any = null;
     this.requestResults = undefined; this.gotResponse = false;
@@ -161,7 +163,7 @@ export class MainviewComponent implements OnInit {
       if (this.selectedUri.availableMedia.length == 0)
         this.downloadable = true;
     }
-   };
+  };
 
   // creating start uri, true if uri starts with '/' 
 
@@ -229,10 +231,10 @@ export class MainviewComponent implements OnInit {
   public cleanName(resName: string) {
     return resName.replace(/ /g, '');
   }
-  public getPath(link:ILink){
+  public getPath(link: ILink) {
     //returns a relativepath to link
     //"/?method="+link.method+'&ref='+link.href+'&name='+this.cleanName(link.rel)
-    return link.href+'/'+link.method+'/'+this.cleanName(link.rel)
+    return link.href + '/' + link.method + '/' + this.cleanName(link.rel)
   }
 
   // need to detect changes because getMapClass() changes the dom. without this causes changedetection error
