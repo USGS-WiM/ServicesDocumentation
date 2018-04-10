@@ -1,11 +1,11 @@
 {
     "copyright": "2017 WIM - USGS",
     "author": "Jeremy Newson - USGS Web Informatics and Mapping", 
-    "purpose": "Krig services external config file for documentation.",
+    "purpose": "sample services external config file for documentation.",
   "configuration": {
-    "title": "Krig Web Services",
-    "serviceurl": "https://test.streamstats.usgs.gov/krigServices/",
-    "apiConfig": "https://test.streamstats.usgs.gov/krigServices/apiconfig",
-    "homepage": "https://raw.githubusercontent.com/USGS-WiM/krigServices/staging/Docs/Introduction.md"
+    "title": "National Streamflow Statistics Web Services",
+    "serviceurl": "https://test.streamstats.usgs.gov/nssservices/",
+    "apiConfig": "/assets/sampleapiconfig.json",
+    "homepage": "/assets/sampleIntroduction.md"
   }
 }

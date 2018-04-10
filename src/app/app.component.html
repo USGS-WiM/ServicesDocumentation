@@ -31,7 +31,7 @@
                     <div  *ngFor="let method of resource.methods">
                         <p>{{method.type}}</p>
                         <div *ngFor="let url of method.uriList">
-                            <a [routerLink]="[method.type, cleanName(resource.name), cleanName(url.name)]" routerLinkActive="active-link" title="{{url.name}}">{{url.name}}</a>
+                            <a [routerLink]="[cleanName(resource.name),method.type, cleanName(url.name)]" routerLinkActive="active-link" title="{{url.name}}">{{url.name}}</a>
                             <br />
                         </div>
                     </div>
