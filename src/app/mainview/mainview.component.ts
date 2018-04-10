@@ -19,6 +19,7 @@ import { MapService } from "./map.service";
 import { PathService } from "../shared/services/path.service";
 import { Http } from '@angular/http';
 import { resolve } from 'url';
+import { ILink } from '../shared/interfaces/ILink.interface';
 
 
 @Component({
@@ -42,6 +43,15 @@ export class MainviewComponent implements OnInit {
   public geoJsonResponseLayer: L.FeatureGroup;
   public showMap: boolean; // set to true when 'Show response on map' is clicked to change styling of map container
   private hometemplate: string;
+  private _startUri: string;
+  public get StartUri(): string {
+    if (this.selectedUri.uri.startsWith('/')) {
+      return this.configSettings.serviceurl + this.selectedResource.name.toLowerCase() + this.selectedUri.newURL;
+    } else {
+      return this.configSettings.serviceurl + this.selectedUri.newURL;
+    };
+  }
+
   constructor(private _configService: ConfigService, private _route: ActivatedRoute,
     private _router: Router, private _httpService: HttpServices, private _mapService: MapService,
     private _pathService: PathService, private _cdRef: ChangeDetectorRef, private _http: Http) {
@@ -77,7 +87,7 @@ export class MainviewComponent implements OnInit {
       this.waitCursor = false;
       if (urlSeg.length > 1) {
         //method, resource, uri
-        this.resourceName = urlSeg[1].path;    //ex: '/Contacts'
+        this.resourceName = urlSeg[0].path;    //ex: '/Contacts'
         this._pathService.setpath(this.resourceName);
         //get the selected resource
         this.selectedResource = this.configSettings.resources.filter(res => { return res.name.replace(/ /g, '') == this.resourceName })[0];
@@ -85,16 +95,13 @@ export class MainviewComponent implements OnInit {
           this.isSelected = true;
 
           this.selectedResource.methods.forEach((method) => {
-            if (method.type == urlSeg[0].path) {
+            if (method.type == urlSeg[1].path) {
               method.uriList.forEach((uri) => {
                 if (uri.name.replace(/ /g, '') == urlSeg[2].path) {
-                  this.thisRoute = urlSeg[1].path;
+                  this.thisRoute = urlSeg[0].path;
                   this.selectedUri = uri;
                   this.updateNewUri(); // updates the REST Query URL
-
                 }//endif
-
-
               });
             }//endif
 
@@ -154,18 +161,10 @@ export class MainviewComponent implements OnInit {
       if (this.selectedUri.availableMedia.length == 0)
         this.downloadable = true;
     }
-
    };
 
   // creating start uri, true if uri starts with '/' 
-    private _startUri: string;
-  public get StartUri(): string {
-    if (this.selectedUri.uri.startsWith('/')) {
-      return this.configSettings.serviceurl + this.selectedResource.name.toLowerCase() + this.selectedUri.newURL;
-    } else {
-      return this.configSettings.serviceurl + this.selectedUri.newURL;
-    };
-  }
+
 
   // go hit endpoint and return response
   public loadResponse() {
@@ -229,6 +228,11 @@ export class MainviewComponent implements OnInit {
   }
   public cleanName(resName: string) {
     return resName.replace(/ /g, '');
+  }
+  public getPath(link:ILink){
+    //returns a relativepath to link
+    //"/?method="+link.method+'&ref='+link.href+'&name='+this.cleanName(link.rel)
+    return link.href+'/'+link.method+'/'+this.cleanName(link.rel)
   }
 
   // need to detect changes because getMapClass() changes the dom. without this causes changedetection error

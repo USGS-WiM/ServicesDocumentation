@@ -47,7 +47,6 @@ export class AppComponent {
 				this.selectedAccordion = "";
 			}
 		});
-
 	}
 
 	public showMobileMenu(){
