@@ -3,7 +3,8 @@
 // ------------------------------------------------------------------------------
 
 // copyright:   2017 WiM - USGS
-// authors:  Tonia Roddick - USGS Wisconsin Internet Mapping
+// authors:  Tonia Roddick - USGS Web Informatics and Mapping
+//           Jeremy K. Newson - USGS Web Informatics and Mapping
 // purpose: module for the sharing of global stuff 
 
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -28,5 +29,4 @@ export class SharedModule {
       providers: [ PathService, HttpServices ]
     }
   }
-
 }

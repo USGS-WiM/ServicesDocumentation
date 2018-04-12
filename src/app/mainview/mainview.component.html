@@ -23,7 +23,7 @@
         <div *ngIf ="selectedUri.description.link" class="well" markdown [src]="selectedUri.description.link"></div>
         <h4>Service URL</h4>
         <div class="well">
-          <code >{{StartUri}}</code>
+          <code >{{DisplayURL}}</code>
         </div>
      
         <div *ngIf="selectedUri.parameters">
@@ -47,7 +47,7 @@
                             <td>{{item.required}}</td>
                             <td>{{item.description}}</td>
                             <td style="padding: 8px .75rem 8px 8px !important; display:flex;">
-                                <input style="width:inherit" [(ngModel)]="item.value" [required]="item.required" (change)="updateNewUri()" novalidate style="flex-grow:3;">
+                                <input style="width:inherit" [(ngModel)]="item.value" [required]="item.required" (change)="UpdateUri()" novalidate style="flex-grow:3;">
                                 <i [ngClass]="item.value || !item.required ? 'fa fa-check green': 'fa fa-warning red'" style="left: 0 !important; margin-left: 5px; top: 12px !important;"></i>
                             </td>
                             <td><span *ngIf="item.link"><a [attr.href]="getPath(item.link)" target="_blank">{{item.link.rel}}</a></span></td>
@@ -88,7 +88,7 @@
         <div class="well">
             <p><i>Updated based on parameters above</i></p>
             <p>
-                <a [ngClass]="{'disabled': selectedUri.body || selectedUri.requiresAuthentication}" href="{{StartUri}}" target="_blank">{{StartUri}}</a>
+                <a [ngClass]="{'disabled': selectedUri.body || selectedUri.requiresAuthentication}" href="{{ResourceURL}}" target="_blank">{{ResourceURL}}</a>
             </p>
             <p>
                 <span *ngIf="!downloadable && !selectedUri.body && !selectedUri.requiresAuthentication" class="btn-toolbar">

@@ -1,11 +1,11 @@
 {
     "copyright": "2017 WIM - USGS",
-    "author": "Jeremy Newson - USGS Web Informatics and Mapping", 
-    "purpose": "NSS services external config file for documentation.",
+    "author": "Author - USGS Web Informatics and Mapping", 
+    "purpose": "sample services external config file for documentation.",
   "configuration": {
-    "title": "National Streamflow Statistics Web Services",
-    "serviceurl": "https://test.streamstats.usgs.gov/nssservices/",
-    "apiConfig": "/assets/NSSapiconfig.json",
-    "homepage": "/assets/NSSIntroduction.md"
+    "title": "sample Web Services",
+    "serviceurl": "https://test.streamstats.usgs.gov/sampleservices/",
+    "apiConfig": "/assets/sampleAPIconfig.json",
+    "homepage": "/assets/samplehomepagemarkdown.md"
   }
 }

@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Resource1",
+    "description": {
+      "string": "Represents resouce 1 description"
+    },
+    "methods": [
+      {
+        "type": "GET",
+        "uriList": [
+          {
+            "uri": "SomeOtherResource/resource1",
+            "description": {
+              "string": "sample uri sample 1. Notice the uri comes from another resource... via no / as first character"
+            },
+            "name": "uri sample 1",
+            "parameters": [
+              {
+                "name": "parameter1",
+                "type": "String",
+                "required": true,
+                "description": "required parameter 1 description."
+              },
+              {
+                "name": "parameter2",
+                "type": "number",
+                "description": "Optional parameter 2 description."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Resource2",
+    "description": {
+      "string": "Represents resource 2 description"
+    },
+    "methods": [
+      {
+        "type": "GET",
+        "uriList": [
+          {
+            "uri": "/",
+            "description": {
+              "string": "sample uri sample 1 description."
+            },
+            "name": "uri sample 1",
+            "parameters": [
+              {
+                "name": "parameter1",
+                "type": "String",
+                "required": true,
+                "description": "required parameter 1 description."
+              },
+              {
+                "name": "parameter2",
+                "type": "number",
+                "description": "Optional parameter 2 description."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

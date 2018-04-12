@@ -2,7 +2,8 @@
 // -------- app.routing.module --------------------------------------------------
 // ------------------------------------------------------------------------------
 // copyright:   2017 WiM - USGS
-// authors:  Tonia Roddick USGS Wisconsin Internet Mapping
+// authors:  Tonia Roddick USGS Web Informatics and Mapping
+//           Jeremy K. Newson - USGS Web Informatics and Mapping
 // purpose: routes for the resource clicked
 
 import { NgModule } from '@angular/core';

@@ -2,7 +2,8 @@
 // ----- http.service ----------------------------------------------------
 // ------------------------------------------------------------------------------
 // copyright:   2017 WiM - USGS
-// authors:  Tonia Roddick USGS Wisconsin Internet Mapping             
+// authors:  Tonia Roddick USGS Web Informatics and Mapping     
+//           Jeremy K. Newson - USGS Web Informatics and Mapping        
 // purpose: service to retrieve data
 
 import { Injectable } from '@angular/core';

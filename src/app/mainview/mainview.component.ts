@@ -2,7 +2,8 @@
 // ----- mainview.component -----------------------------------------------------
 // ------------------------------------------------------------------------------
 // copyright:   2017 WiM - USGS
-// authors:  Tonia Roddick USGS Wisconsin Internet Mapping
+// authors:  Tonia Roddick Web Informatics and Mapping
+//           Jeremy K. Newson - USGS Web Informatics and Mapping
 // purpose: main component that shows home page and resource information
 
 import * as L from 'leaflet';
@@ -28,6 +29,7 @@ import { ILink } from '../shared/interfaces/ILink.interface';
 })
 export class MainviewComponent implements OnInit {
   @ViewChild('map') mapContainer;
+  //#region Properties and Fields
   public thisRoute: string;
   public title: string;
   public configSettings: IconfigObj; // external assets/config.json
@@ -43,20 +45,30 @@ export class MainviewComponent implements OnInit {
   public geoJsonResponseLayer: L.FeatureGroup;
   public showMap: boolean; // set to true when 'Show response on map' is clicked to change styling of map container
   private hometemplate: string;
-  private _startUri: string;
-  public get StartUri(): string {
+  private _resourceURL:string;
+  public get ResourceURL(): string {
     if (this.selectedUri.uri.startsWith('/')) {
-      return this.configSettings.serviceurl + this.selectedResource.name.toLowerCase() + this.selectedUri.newURL;
+      return this.configSettings.serviceurl + this.selectedResource.name.toLowerCase() + this.selectedUri.newURI;
     } else {
-      return this.configSettings.serviceurl + this.selectedUri.newURL;
+      return this.configSettings.serviceurl + this.selectedUri.newURI;
     };
   }
-
+  private _displayURL:string;
+  public get DisplayURL(): string {
+    if (this.selectedUri.uri.startsWith('/')) {
+      return this.configSettings.serviceurl + this.selectedResource.name.toLowerCase() + this._displayURL;
+    } else {
+      return this.configSettings.serviceurl + this._displayURL;
+    };
+  }
+  private uriQueryParameters:Array<Iparameter>;
+  //#endregion
   constructor(private _configService: ConfigService, private _route: ActivatedRoute,
     private _router: Router, private _httpService: HttpServices, private _mapService: MapService,
     private _pathService: PathService, private _cdRef: ChangeDetectorRef, private _http: Http) {
     this.configSettings = this._configService.getConfiguration().configuration;
   }
+  //#region NG Lifecycle-hooks
   ngAfterViewInit() {
     if (this.thisRoute !== 'home') {
       this.map = L.map(this.mapContainer.nativeElement, {
@@ -100,11 +112,11 @@ export class MainviewComponent implements OnInit {
                 if (uri.name.replace(/ /g, '') == urlSeg[2].path) {
                   this.thisRoute = urlSeg[0].path;
                   this.selectedUri = uri;
-                  this.updateNewUri(); // updates the REST Query URL
+                  this.loadQueryParameters();
+                  this.UpdateUri(); // updates the REST Query URL
                 }//endif
               });
             }//endif
-
           });
           if (!this.selectedUri)
             this._router.navigate(['notFound']);
@@ -121,31 +133,19 @@ export class MainviewComponent implements OnInit {
         this._router.navigate(['notFound']);
       }
     });
-  } // end ngOnInit()
-
+  }
+  ngAfterViewChecked() {
+    this._cdRef.detectChanges();
+  }
+  //#endregion
+  //#region Methods
   // each time they change the selectedMedia or a parameter
-  public updateNewUri() {
-    //adding parameters to url
-
-    if (this.selectedUri.parameters && !(this.selectedUri.uri.indexOf('?') > -1)) {
-      if (this.selectedUri.parameters.length > 0) {
-        var uri = this.selectedUri;
-        let inParams = uri.parameters;
-        var rg = /[^{\}]+(?=})/g;
-        var uriParams = [];
-        uriParams.push(rg.exec(uri.uri));
-        if (uri.parameters.length > 1 || uri.parameters[0].name != uriParams[0]) uri.uri += '?';
-        inParams.forEach(function (p) {
-          uriParams.forEach(function (u) {
-            if (p.name != u && p != inParams[inParams.length - 1]) {
-              uri.uri += p.name + '={' + p.name + '}&';
-            } else if (p.name != u) {
-              uri.uri += p.name + '={' + p.name + '}';
-            }
-          });
-        });
-      }
-    }
+  public UpdateUri() {
+    let qparam = this.uriQueryParameters.filter(p => (p.required || p.value)).map(p=>p.name + '={' + p.name + '}'); 
+    this._displayURL = this.selectedUri.uri;
+    
+    if(qparam.length>0)
+      this._displayURL +="?"+ qparam.join('&')  
 
     //must look at parameterlistvalues and url -> search and replace
     let inputParams: any = null;
@@ -157,22 +157,19 @@ export class MainviewComponent implements OnInit {
       );
     }//endif
 
-    this.selectedUri.newURL = this.formatString(this.selectedUri.uri, inputParams);
+    this.selectedUri.newURI = this.formatString(this._displayURL, inputParams);
+
     //for file download endpoints, don't show button to load response in output box
     if (this.selectedUri.availableMedia != undefined) {
       if (this.selectedUri.availableMedia.length == 0)
         this.downloadable = true;
     }
-  };
-
-  // creating start uri, true if uri starts with '/' 
-
-
+  }
   // go hit endpoint and return response
   public loadResponse() {
     this.waitCursor = true;
 
-    this._httpService.getEntities(this.StartUri).subscribe((response) => {
+    this._httpService.getEntities(this.ResourceURL).subscribe((response) => {
       this.gotResponse = true;
       this.waitCursor = false;
       this.requestResults = response;
@@ -181,15 +178,6 @@ export class MainviewComponent implements OnInit {
       this.requestResults = "(" + error.status + ") " + error.statusText;
       this.waitCursor = false;
     })
-  }
-  // format the uri to remove {#} with parameter given
-  private formatString(uri, inputs): string {
-    let formattedURI: string = "";
-    var args = inputs;
-    var newstring = uri.replace(/{[a-zA-Z0-9_]+}/g, function (match, number) {
-      return typeof args[match.slice(1, -1)] != 'undefined' ? args[match.slice(1, -1)] : match;
-    });
-    return newstring;
   }
   // if geojson, can view response on mapS
   public showResponseOnMap() {
@@ -228,17 +216,30 @@ export class MainviewComponent implements OnInit {
       return 'mapView';
     } else return '';
   }
-  public cleanName(resName: string) {
-    return resName.replace(/ /g, '');
-  }
   public getPath(link: ILink) {
     //returns a relativepath to link
-    //"/?method="+link.method+'&ref='+link.href+'&name='+this.cleanName(link.rel)
-    return link.href + '/' + link.method + '/' + this.cleanName(link.rel)
+    //"/?method="+link.method+'&ref='+link.href+'&name='+ link.rel.replace(/ /g, '');
+    return link.href + '/' + link.method + '/' + link.rel.replace(/ /g, '');
   }
-
-  // need to detect changes because getMapClass() changes the dom. without this causes changedetection error
-  ngAfterViewChecked() {
-    this._cdRef.detectChanges();
+  //#endregion
+  //#region Helper Methods
+  private loadQueryParameters(){    
+    let rg = /[^{\}]+(?=})/g;
+    let uriParams:Array<string> = rg.exec(this.selectedUri.uri);
+    if(uriParams==null) uriParams =[];
+    if (!this.selectedUri.parameters ) {this.uriQueryParameters =[]; return}
+    let inParams = this.selectedUri.parameters;
+    
+    this.uriQueryParameters = this.selectedUri.parameters.filter((p)=>(uriParams.indexOf(p.name)==-1));
   }
+  // format the uri to remove {#} with parameter given
+  private formatString(uri, inputs): string {
+    let formattedURI: string = "";
+    var args = inputs;
+    var newstring = uri.replace(/{[a-zA-Z0-9_]+}/g, function (match, number) {
+      return typeof args[match.slice(1, -1)] != 'undefined' ? args[match.slice(1, -1)] : match;
+    });
+    return newstring;
+  }
+  //#endregion
 }

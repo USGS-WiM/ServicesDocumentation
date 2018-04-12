@@ -2,7 +2,8 @@
 // ----- IUrilist.interface.ts -----------------------------------------------
 // ------------------------------------------------------------------------------
 // copyright:   2017 WiM - USGS
-// authors:  Tonia Roddick - USGS Wisconsin Internet Mapping
+// authors:  Tonia Roddick - USGS Web Informatics and Mapping
+//           Jeremy K. Newson - USGS Web Informatics and Mapping
 // purpose: interface for the settings/config.json configuration.resources[i].methods.uriList
 
 import { Iparameter } from "./IParameter.interface";
@@ -14,7 +15,7 @@ export interface Iurilist {
     parameters: Array<Iparameter>;
     body: Array<Iparameter>;
     showMap?: boolean;
-    newURL: string;
+    newURI: string;
     availableMedia: Array<string>;
     selectedMedia: string;
 }

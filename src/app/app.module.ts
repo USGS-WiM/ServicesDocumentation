@@ -2,7 +2,8 @@
 // --------- app.module ---------------------------------------------------------
 // ------------------------------------------------------------------------------
 // copyright:   2017 WiM - USGS
-// authors:  Tonia Roddick USGS Wisconsin Internet Mapping             
+// authors:  Tonia Roddick USGS Web Informatics and Mapping   
+//           Jeremy K. Newson - USGS Web Informatics and Mapping          
 // purpose: app module for web services documentation interface
 
 import { BrowserModule } from '@angular/platform-browser';
