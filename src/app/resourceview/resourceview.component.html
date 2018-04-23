@@ -1,0 +1,100 @@
+<!-- start of the resource section chosen -->
+<div id="resourceDescription" *ngIf="SelectedResource">
+  <h4>{{SelectedResource.name}}</h4>
+  <div *ngIf ="SelectedResource.description.string" class="well">{{ SelectedResource.description.string }}</div>
+  <div *ngIf ="SelectedResource.description.link" class="well" markdown [src]="SelectedResource.description.link"></div>
+</div>
+<div class="panel" *ngIf="SelectedUri">
+  <h4>Service Description</h4>
+  <div *ngIf ="SelectedUri.description.string" class="well">{{ SelectedUri.description.string }}</div>
+  <div *ngIf ="SelectedUri.description.link" class="well" markdown [src]="SelectedUri.description.link"></div>
+  <h4>Service URL</h4>
+  <div class="well">
+    <code >{{DisplayURL}}</code>
+  </div>
+
+  <div *ngIf="SelectedUri.parameters">
+      <h4>Parameters</h4>
+      <div class="well parameters-wrapper">
+          <table class="table table-condensed" style="font-size:12px;margin-bottom:0px;">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                      <th>Description</th>
+                      <th>Input Parameter</th>
+                      <th>Additional Info</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of SelectedUri.parameters">
+                      <td><strong>{{item.name}}</strong></td>
+                      <td>{{item.type}}</td>
+                      <td>{{item.required}}</td>
+                      <td>{{item.description}}</td>
+                      <td style="padding: 8px .75rem 8px 8px !important; display:flex;">
+                          <input style="width:inherit" [(ngModel)]="item.value" [required]="item.required" (change)="UpdateUri()" novalidate style="flex-grow:3;">
+                          <i [ngClass]="item.value || !item.required ? 'fa fa-check green': 'fa fa-warning red'" style="left: 0 !important; margin-left: 5px; top: 12px !important;"></i>
+                      </td>
+                      <td><span *ngIf="item.link"><a [attr.href]="GetLinkPath(item.link)" target="_blank">{{item.link.rel}}</a></span></td>
+                  </tr>
+                  <tr *ngIf="SelectedUri.parameters.length == 0">
+                      <td colspan="2">No parameters are required.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <div *ngIf="SelectedUri.body">
+          <h4>Body</h4>
+          <div class="well parameters-wrapper">
+              <table class="table table-condensed" style="font-size:12px;margin-bottom:0px;">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Type</th>
+                          <th>Description</th>
+                          <th>Additional Info</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of SelectedUri.body">
+                          <td><strong>{{item.name}}</strong></td>
+                          <td>{{item.type}}</td>
+                          <td>{{item.description}}</td>
+                          <td><span *ngIf="item.link"><a [attr.href]="GetLinkPath(item.link)" target="_blank">{{item.link.rel}}</a></span></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  
+  <h4>REST Query URL</h4>
+  <div class="well">
+      <p><i>Updated based on parameters above</i></p>
+      <p>
+          <a [ngClass]="{'disabled': SelectedUri.body || SelectedUri.requiresAuthentication}" href="{{ResourceURL}}" target="_blank">{{ResourceURL}}</a>
+      </p>
+      <p>
+          <span *ngIf="!SelectedUri.body && !SelectedUri.requiresAuthentication" class="btn-toolbar">
+              <button (click)="LoadResponse()" type="button" class="btn btn-primary btn-sm">
+                  <i class="fa fa-refresh" [ngClass]="{'fa-spin': ShowWaitCursor}"></i>&nbsp;&nbsp;Load response in {{SelectedUri.selectedMedia}} format
+              </button>              
+              <br/>
+          </span>
+      </p>    
+      <div *ngIf="!SelectedUri.body && !SelectedUri.requiresAuthentication" class="panel panel-default" style="padding:25px;background:white">
+          <div class="panel-body">
+              <json-formatter *ngIf="RequestResults" [open]="false" [json]="RequestResults"></json-formatter>
+          </div>
+      </div>
+  </div> <!-- end 'well' -->
+</div>
+
+<!-- end if SelectedUri -->    
+<div *ngIf="!SelectedUri">
+  <h3>Resource Not Found</h3>
+</div>
+

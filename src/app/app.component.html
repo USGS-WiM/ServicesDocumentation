@@ -19,7 +19,7 @@
 </button>
 
 <div class="wim-sidebar fixed" id="appMenu">
-    <div class="card-header"><a [routerLink]="['home']" routerLinkActive="active">Home</a></div>
+    <div class="card-header"><a [routerLink]="['']" routerLinkActive="active">Home</a></div>
     <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccChange($event)">
         <ngb-panel *ngFor="let resource of resources" id="{{cleanName(resource.name)}}">
             <ng-template ngbPanelTitle>
@@ -31,7 +31,7 @@
                     <div  *ngFor="let method of resource.methods">
                         <p>{{method.type}}</p>
                         <div *ngFor="let url of method.uriList">
-                            <a [routerLink]="[cleanName(resource.name),method.type, cleanName(url.name)]" routerLinkActive="active-link" title="{{url.name}}">{{url.name}}</a>
+                            <a [routerLink]="[cleanName(resource.name),method.type,cleanName(url.name)]" routerLinkActive="active-link" title="{{url.name}}">{{url.name}}</a>
                             <br />
                         </div>
                     </div>
@@ -43,7 +43,6 @@
     <div class="identification pull-right">powered by <a href="http://wim.usgs.gov/" target="_blank">WiM</a></div>
 </div>
 
-<!-- MAINVIEW -->
 <div class="container" style="margin-top:65px">
    <router-outlet></router-outlet>
 </div>

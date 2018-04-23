@@ -15,12 +15,13 @@ import { environment } from '../environments/environment';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
-import { MainviewComponent } from "./mainview/mainview.component";
+import { HomeviewComponent } from "./homeview/homeview.component";
+import { ResourceviewComponent } from "./resourceview/resourceview.component";
 import { PageNotFoundComponent } from "./not-found/not-found.component";
 import { ConfigService } from "./config.service";
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from "./app.routing.module";
-import { MapService } from "./mainview/map.service";
+import { MapService } from "./resourceview/map.service";
 
 export function ConfigLoader(configService: ConfigService) {
   //returns externally referenced config file for use in this application	
@@ -28,7 +29,7 @@ export function ConfigLoader(configService: ConfigService) {
 }
 
 @NgModule({
-  declarations: [ AppComponent, MainviewComponent, PageNotFoundComponent],
+  declarations: [ AppComponent, HomeviewComponent, PageNotFoundComponent, ResourceviewComponent],
   imports: [ BrowserModule, HttpModule, FormsModule, AppRoutingModule, SharedModule.forRoot(), MarkdownModule.forRoot() ],
   providers: [MapService, ConfigService,
         { provide: APP_INITIALIZER, useFactory: ConfigLoader, deps: [ConfigService], multi:true}

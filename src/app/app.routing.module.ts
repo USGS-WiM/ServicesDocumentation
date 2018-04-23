@@ -8,26 +8,22 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainviewComponent } from "./mainview/mainview.component";
 import { AppComponent } from "./app.component";
 import { ConfigService } from "./config.service";
 import { environment } from "../environments/environment";
 import { IconfigObj } from "./shared/interfaces/IConfiObj.interface";
 import { PageNotFoundComponent } from "./not-found/not-found.component";
+import { ResourceviewComponent } from './resourceview/resourceview.component';
+import { HomeviewComponent } from "./homeview/homeview.component";
 
-const appRoutes: Routes = [
-    {   path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-    },
+const appRoutes: Routes = [ 
     {
-        path: 'home',
-        component: MainviewComponent
+        path: '',         
+        component: HomeviewComponent
     },    
     {
-        path: '**', 
-        
-        component: MainviewComponent
+        path: '**',
+        component: ResourceviewComponent
     },
     {
         path: 'notFound',
@@ -36,4 +32,4 @@ const appRoutes: Routes = [
     }
 ];
 
-export const AppRoutingModule = RouterModule.forRoot(appRoutes);
+export const AppRoutingModule = RouterModule.forRoot(appRoutes, {useHash:true}); // implements /#/

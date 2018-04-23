@@ -4,12 +4,11 @@
 // copyright:   2017 WiM - USGS
 // authors:  Tonia Roddick USGS Web Informatics and Mapping
 //           Jeremy K. Newson - USGS Web Informatics and Mapping
-// purpose: app component main shell that holds nav, sidebar, and mainview
+// purpose: app component main shell that holds nav, sidebar, and router
 
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 
-import { MainviewComponent } from "./mainview/mainview.component";
 import { IconfigObj } from "./shared/interfaces/IConfiObj.interface";
 import { ConfigService } from "./config.service";
 import { Iurilist } from "./shared/interfaces/IUrilist.interface";
@@ -38,7 +37,7 @@ export class AppComponent {
 		this.resources = this.configSettings.resources;
 		
 		this._pathService.getPath().subscribe((path:string) => {
-			if (path !== "home"){
+			if (path !== ""){
 				if (this.accordion.activeIds[0] !== path) {
 					this.accordion.activeIds = [path];
 					this.selectedAccordion = path;

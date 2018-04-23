@@ -4,7 +4,7 @@
 // copyright:   2017 WiM - USGS
 // authors:  Tonia Roddick USGS Web Informatics and Mapping             
 //           Jeremy K. Newson - USGS Web Informatics and Mapping
-// purpose: component to format json response in mainview from https://github.com/mohsen1/json-formatter/issues/62
+// purpose: component to format json response from https://github.com/mohsen1/json-formatter/issues/62
 
 import { Component, Input, OnInit } from '@angular/core';
 import { getObjectName, getPreview, getType, getValuePreview } from './utils';

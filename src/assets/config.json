@@ -3,9 +3,9 @@
     "author": "Author - USGS Web Informatics and Mapping", 
     "purpose": "sample services external config file for documentation.",
   "configuration": {
-    "title": "sample Web Services",
-    "serviceurl": "https://test.streamstats.usgs.gov/sampleservices/",
-    "apiConfig": "/assets/sampleAPIconfig.json",
-    "homepage": "/assets/samplehomepagemarkdown.md"
+    "title": "wateruse Web Services",
+    "serviceurl": "https://test.streamstats.usgs.gov/wateruseservices/",
+    "apiConfig": "https://test.streamstats.usgs.gov/wateruseservices/APIconfig",
+    "homepage": "https://raw.githubusercontent.com/USGS-WiM/WaterUseServices/staging/Docs/Introduction.md"
   }
 }
