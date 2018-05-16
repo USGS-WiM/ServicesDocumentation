@@ -71,7 +71,8 @@ export class ResourceviewComponent implements OnInit {
   //#region Methods
   public UpdateUri() {
     let qparam = this.uriParameters.filter(p => (p.required || p.value)).map(p=>p.name + '={' + p.name + '}'); 
-    this._displayURL = this.SelectedUri.uri;
+    //removes trailing / if present.
+    this._displayURL = this.SelectedUri.uri.replace(/\/$/, '');
     
     if(qparam.length>0)
       this._displayURL +="?"+ qparam.join('&')  

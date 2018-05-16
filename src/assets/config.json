@@ -5,7 +5,7 @@
   "configuration": {
     "title": "wateruse Web Services",
     "serviceurl": "https://test.streamstats.usgs.gov/wateruseservices/",
-    "apiConfig": "https://test.streamstats.usgs.gov/wateruseservices/APIconfig",
+    "apiConfig": "https://test.streamstats.usgs.gov/wateruseservices/apiconfig",
     "homepage": "https://raw.githubusercontent.com/USGS-WiM/WaterUseServices/staging/Docs/Introduction.md"
   }
 }
