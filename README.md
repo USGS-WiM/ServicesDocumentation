@@ -93,19 +93,31 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 ## Deployment
 
-Run `ng build -prod --baseHref` to build a deployed project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build, and --baseHref to set the base tag to <base href="">.
+Run `ng build --configuration production` to build a deployed project. Configureation has now moved to angular.json file
 
 see [CLI build](https://github.com/angular/angular-cli/wiki/build) for additional options.
 
 ## Migrating to latest CLI
 
-Migrating to the latest version of angular cli can be accomplished by referencing the [angular-update-guide](https://angular-update-guide.firebaseapp.com/)
+Migrating to the latest version of angular cli can be accomplished by referencing the [angular-update-cli](https://github.com/angular/angular-cli#updating-angular-cli)
 
-```
-npm install typescript@2.4 --save-dev
+To update Angular CLI to a new version, you must update both the global package and your project's local package.
 
-npm install @angular/common@latest @angular/compiler@latest @angular/compiler-cli@latest @angular/core@latest @angular/forms@latest @angular/http@latest @angular/platform-browser@latest @angular/platform-browser-dynamic@latest @angular/platform-server@latest @angular/router@latest @angular/animations@latest --save
+Global package:
+```bash
+npm uninstall -g @angular/cli
+npm cache verify
+# if npm version is < 5 then use `npm cache clean`
+npm install -g @angular/cli@latest
 ```
+
+Local project package:
+```bash
+rm -rf node_modules dist # use rmdir /S/Q node_modules dist in Windows Command Prompt; use rm -r -fo node_modules,dist in Windows PowerShell
+npm install --save-dev @angular/cli@latest
+npm install
+```
+
 
 ## Authors
 
