@@ -53,7 +53,12 @@ ul{
   margin: auto !important;
   padding: 0 20px !important;
 }
-
+img{
+  max-width: 100%;
+}
+.json-formatter-row .string{
+  white-space:normal !important;
+}
 /*Nav Bar*/
 .wim-nav{
   height: 50px !important;

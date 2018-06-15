@@ -64,12 +64,11 @@ h4:nth-child(1) {
     width:inherit;
 }
 #resourceDescription{
-    background-color: #3a7bd5;
+    background-color:#ddd;
     box-sizing: border-box;
     padding: 20px;
     box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
     margin-bottom: 35px;
-    color: #fff;
     border: none;
 }
 #resourceDescription h4 {

@@ -35,7 +35,7 @@ export class AppComponent {
 		this.selectedAccordion = "";
 		this.title = this.configSettings.title + " API Documentation";
 		this.resources = this.configSettings.resources;
-		
+		this.selectedAccordion = this.cleanName(this.resources[0].name);
 		this._pathService.getPath().subscribe((path:string) => {
 			if (path !== ""){
 				if (this.accordion.activeIds[0] !== path) {
