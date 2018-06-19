@@ -102,7 +102,9 @@ export class ResourceviewComponent implements OnInit {
   }
   public GetLinkPath(link: ILink):String {
     //returns a relativepath to link
-    return "./#/"+link.href + '/' + link.method + '/' + link.rel.replace(/ /g, '');
+    //rel attribute specifies the relationship between the current document and the linked document/resource
+    //href Specifies the location of the linked document
+    return ("./#/"+link.href + '/' + link.method + '/' + link.rel).replace(/ /g, '');
   }
   //#endregion
   //#region Helper Methods
